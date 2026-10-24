@@ -1,0 +1,43 @@
+erDiagram
+    MembershipPlan |o--o{ Member : "has"
+    Trainer |o--o{ Member : "trains"
+    Trainer |o--o{ ClassTable : "teaches"
+    Member ||--o{ Enrollment : "has"
+    ClassTable ||--o{ Enrollment : "has"
+
+    MembershipPlan {
+        INT planID PK
+        VARCHAR plan_name "NOT NULL"
+        DECIMAL price "NOT NULL, CHECK >= 0"
+        INT duration_months "NOT NULL, CHECK > 0"
+    }
+    Trainer {
+        INT trainerID PK
+        VARCHAR first_name "NOT NULL"
+        VARCHAR last_name "NOT NULL"
+        VARCHAR specialty
+        VARCHAR email
+        DECIMAL salary "CHECK >= 0"
+    }
+    Member {
+        INT memberID PK
+        VARCHAR first_name "NOT NULL"
+        VARCHAR last_name "NOT NULL"
+        VARCHAR phone
+        VARCHAR email
+        DATE start_date "NOT NULL"
+        INT planID FK "ON DELETE SET NULL"
+        INT trainerID FK "ON DELETE SET NULL"
+    }
+    ClassTable["Class"] {
+        INT classID PK
+        VARCHAR class_name "NOT NULL"
+        DATE schedule_date "NOT NULL"
+        INT trainerID FK "ON DELETE SET NULL"
+        INT capacity "NOT NULL, CHECK > 0"
+    }
+    Enrollment {
+        INT enrollID PK
+        INT memberID FK,UK "NOT NULL, ON DELETE CASCADE"
+        INT classID FK,UK "NOT NULL, ON DELETE CASCADE"
+    }

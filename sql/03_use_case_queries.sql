@@ -23,8 +23,9 @@ INSERT INTO MembershipPlan (plan_name, price, duration_months)
 VALUES ('Elite', 120.00, 1);
 
 # Enroll a member into a class
+# (member 1 is already in class 1 from the sample data, and duplicate enrollments are rejected)
 INSERT INTO Enrollment (memberID, classID)
-VALUES (1, 1);
+VALUES (1, 3);
 
 #Updating
 
